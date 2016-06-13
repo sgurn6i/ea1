@@ -4,6 +4,7 @@
 */
 #ifndef _EA1_BENRI_H_
 #define _EA1_BENRI_H_
+#include <stdlib.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
