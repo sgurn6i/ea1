@@ -8,10 +8,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define  EA1_SAFE_FREE(p) if(p) free(p)
-  
+#define  EA1_SAFE_FREE(p) \
+  do { if(p) { free(p); p = NULL; }} while(0)
 #ifdef __cplusplus
 }
 #endif	/* C++ */
+#define  EA1_SAFE_DELETE(p) \
+  do { if(p) { delete(p); p = NULL; }} while(0)
 #endif /* _EA1_BENRI_H_ */
