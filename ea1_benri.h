@@ -5,14 +5,24 @@
 #ifndef _EA1_BENRI_H_
 #define _EA1_BENRI_H_
 #include <stdlib.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+/* malloc解放 */
 #define  EA1_SAFE_FREE(p) \
   do { if(p) { free(p); p = NULL; }} while(0)
 #ifdef __cplusplus
 }
 #endif	/* C++ */
+
+/* 簡単なエラーコード */
+#define EA1_OK              0
+#define EA1_FAIL            -1
+#define EA1_OUTOF_MEMORY    -2  /* メモリ不足 */
+#define EA1_FILE_ERROR      -3  /* ファイル IO エラー */
+#define EA1_EINVAL          -4  /* invalid argument */
+
 #define  EA1_SAFE_DELETE(p) \
   do { if(p) { delete(p); p = NULL; }} while(0)
 #endif /* _EA1_BENRI_H_ */
