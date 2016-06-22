@@ -18,10 +18,12 @@ extern "C" {
 
 /* 簡単なエラーコード */
 #define EA1_OK              0
-#define EA1_FAIL            -1
+#define EA1_FAIL            -1  /* 一般エラー */
 #define EA1_OUTOF_MEMORY    -2  /* メモリ不足 */
 #define EA1_FILE_ERROR      -3  /* ファイル IO エラー */
 #define EA1_EINVAL          -4  /* invalid argument */
+#define EA1_ERANGE          -5  /* 数値範囲外の結果になる。 */
+#define EA1_NOT_IMPLEMENTED -100  /* まだ実装してない */
 
 #define  EA1_SAFE_DELETE(p) \
   do { if(p) { delete(p); p = NULL; }} while(0)

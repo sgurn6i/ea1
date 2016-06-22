@@ -5,6 +5,7 @@
 #include <vector>
 #include "ea1_debug.h"
 #include "ea1_benri.h"
+#include "ea1_time.h"
 
 #define LOG_TAG "EA1_TEST"
 
@@ -23,5 +24,12 @@ int main(int argc, char *argv[])
   EA1_SAFE_FREE(bp);
   EA1_SAFE_DELETE(vp);
   EA1_SAFE_DELETE(vp);
+  double t1 = ea1_gettimeofday_ms();
+  double t_sleep = 1000.0 - 1.0e-6;
+  LOGI("t1 = %f ms", t1);
+  LOGI("sleeping %f ms", t_sleep);
+  int rc = ea1_sleep_ms(t_sleep);
+  double t2 = ea1_gettimeofday_ms();
+  LOGI("slept %f ms, rc %d", t2 - t1, rc);
   return 0;
 }
