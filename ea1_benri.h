@@ -23,6 +23,7 @@ extern "C" {
 #define EA1_FILE_ERROR      -3  /* ファイル IO エラー */
 #define EA1_EINVAL          -4  /* invalid argument */
 #define EA1_ERANGE          -5  /* 数値範囲外の結果になる。 */
+#define EA1_E_NOT_READY     -6  /* 準備出来てない。 */
 #define EA1_NOT_IMPLEMENTED -100  /* まだ実装してない */
 
 #define  EA1_SAFE_DELETE(p) \

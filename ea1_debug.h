@@ -27,4 +27,10 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif	/* C++ */
+/* LOGEしてから throw codeする。 */
+#define THROW_E(code, ...) \
+  do {                     \
+    LOGE(__VA_ARGS__);     \
+    throw code;            \
+  } while(0)
 #endif /* _EA1_DEBUG_H_ */
