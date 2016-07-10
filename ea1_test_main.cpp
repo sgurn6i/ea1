@@ -11,6 +11,7 @@
 
 int main(int argc, char *argv[])
 {
+  ea1_status_t status = EA1_OK;
   int a = 123;
   int * ap = NULL;
   int * bp = (int *)malloc(100);
@@ -29,7 +30,9 @@ int main(int argc, char *argv[])
   LOGI("t1 = %f ms", t1);
   LOGI("sleeping %f ms", t_sleep);
   int rc = ea1_sleep_ms(t_sleep);
+  if (rc != 0)
+    status = EA1_E_FAIL;
   double t2 = ea1_gettimeofday_ms();
   LOGI("slept %f ms, rc %d", t2 - t1, rc);
-  return 0;
+  return status;
 }
