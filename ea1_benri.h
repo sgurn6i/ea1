@@ -19,7 +19,8 @@ extern "C" {
 /* 簡単なエラーコード */
 typedef enum ea1_status_enum
 {
-  EA1_OK =             0,
+  EA1_OK =              0,  /* OK */
+  EA1_STATUS1 =         1,  /* エラーではないもうひとつのコード */
   EA1_FAIL =           -1,  /* 一般エラー */
   EA1_OUTOF_MEMORY =   -2,  /* メモリ不足 */
   EA1_FILE_ERROR =     -3,  /* ファイル IO エラー */

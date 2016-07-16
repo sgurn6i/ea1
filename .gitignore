@@ -50,7 +50,7 @@ Makefile.in
 /aclocal.m4
 /compile
 /config.h.in
-/configure
+#/configure
 /configure.scan
 /depcomp
 /install-sh
@@ -60,3 +60,4 @@ Makefile.in
 ## 2016-07-14 17:47:42 config関係
 /config.*
 .deps/
+Makefile
