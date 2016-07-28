@@ -5,6 +5,8 @@ if [ ! -f Makefile ]; then
    ./configure
 fi
 make
-g++ -Wall -g -o $EXECUTABLE ea1_test_main.cpp -lea1
+# CPPFLAGS="-DEA1_DEBUG -DEA1_NO_LOGE"
+CPPFLAGS="-DEA1_DEBUG"
+g++ -Wall -g $CPPFLAGS -o $EXECUTABLE ea1_test_main.cpp -lea1
 ./$EXECUTABLE
 rm -f $EXECUTABLE

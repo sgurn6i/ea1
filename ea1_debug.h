@@ -16,12 +16,30 @@
 extern "C" {
 #endif
   
+#ifndef EA1_NO_LOGI 
 #define LOGI(...) EA1_LOG_PRINTF(__VA_ARGS__)
+#else // def EA1_NO_LOGI
+#define LOGI(...) \
+ do { } while(0)
+#endif // def EA1_NO_LOGI
+  
+#ifndef EA1_NO_LOGE
 #define LOGE(fmt, ...)            \
   EA1_LOG_PRINTF("Error %s %d: " fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+#else  // def EA1_NO_LOGE
+#define LOGE(fmt, ...)            \
+  do { } while(0)
+#endif  // def EA1_NO_LOGE
+  
+#ifdef EA1_DEBUG
 #define LOGD(fmt, ...)            \
   EA1_LOG_PRINTF("%s %d: " fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-/* 内部マクロ */
+#else // ndef EA1_DEBUG
+#define LOGD(fmt, ...) \
+  do { } while(0)
+#endif  // ndef EA1_DEBUG
+
+  /* 内部マクロ */
 #define EA1_LOG_PRINTF(fmt, ...)                 \
   fprintf (stderr, LOG_TAG " " fmt "\n", ##__VA_ARGS__)
 #ifdef __cplusplus

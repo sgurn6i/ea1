@@ -32,6 +32,8 @@ typedef enum ea1_status_enum
 /* 方言 */
 #define EA1_E_FAIL  EA1_FAIL
 #define EA1_E_FILE  EA1_FILE_ERROR
+#define EA1_E_INVAL EA1_EINVAL
+#define EA1_E_RANGE EA1_ERANGE
 
 #define  EA1_SAFE_DELETE(p) \
   do { if(p) { delete(p); p = NULL; }} while(0)
