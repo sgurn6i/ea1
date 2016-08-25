@@ -28,7 +28,7 @@
 #ifndef _EA1_DEBUG_H_
 #define _EA1_DEBUG_H_
 #include <stdio.h>
-#ifdef EA1_DEBUG
+#ifdef EA1_DEBUG_LEAK
 #include <gc.h>
 #endif
 
