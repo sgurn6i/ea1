@@ -3,15 +3,35 @@
   2016-06-07 15:29:15 Sgurn6i
  */
 /* usage:
+ * // logs
  * #define LOG_TAG "Choge"
  * LOGI("hoge info %d", i);
  * LOGE("BUG found");
- * Todo:
+ * #define EA1_DEBUG
+ * LOGD("checkpoint");
+ *
+ * // leak check
+ * #define EA1_DEBUG_LEAK
+ * int main() {
+ * EA1_DEBUG_LEAK_START
+ * ... malloc(..)
+ * ... strdup(..)
+ * ... free(..)
+ * EA1_DEBUG_LEAK_END
+ *  return 0;
+ * }
+ */
+
+/* Todo:
  * Android 対応
  * */
 #ifndef _EA1_DEBUG_H_
 #define _EA1_DEBUG_H_
 #include <stdio.h>
+#ifdef EA1_DEBUG
+#include <gc.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -45,10 +65,37 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif	/* C++ */
+
+#ifdef __cplusplus
 /* LOGEしてから throw codeする。 */
 #define THROW_E(code, ...) \
   do {                     \
     LOGE(__VA_ARGS__);     \
     throw code;            \
   } while(0)
+#endif	/* C++ */
+
+#ifdef __cplusplus
+  extern "C" {
+#endif
+#ifdef EA1_DEBUG_LEAK
+#define malloc(size) GC_debug_malloc(size, __FILE__, __LINE__)
+#define realloc(size) GC_debug_realloc(size, __FILE__, __LINE__)
+#define calloc(m,n) GC_debug_malloc((m) * (n), __FILE__, __LINE__)
+#define strdup(s) GC_debug_strdup(s, __FILE__, __LINE__)
+#define strndup(s,n) GC_debug_strdup(s, n, __FILE__, __LINE__)
+#define free GC_debug_free
+#define EA1_DEBUG_LEAK_START \
+      GC_set_find_leak(1);
+#define EA1_DEBUG_LEAK_END \
+      GC_gcollect(); \
+      GC_set_find_leak(0);
+#else  /* ndef EA1_DEBUG */
+#define EA1_DEBUG_LEAK_START
+#define EA1_DEBUG_LEAK_END
+#endif /* ndef EA1_DEBUG */
+#ifdef __cplusplus
+}
+#endif	/* C++ */
+
 #endif /* _EA1_DEBUG_H_ */
