@@ -28,6 +28,7 @@
 #ifndef _EA1_DEBUG_H_
 #define _EA1_DEBUG_H_
 #include <stdio.h>
+#include <string.h>
 #ifdef EA1_DEBUG_LEAK
 #include <gc.h>
 #endif
@@ -35,6 +36,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/* ディレクトリ名無しの __FILE__ */
+#define EA1_FILE__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
   
 #ifndef EA1_NO_LOGI 
 #define LOGI(...) EA1_LOG_PRINTF(__VA_ARGS__)
@@ -45,7 +49,7 @@ extern "C" {
   
 #ifndef EA1_NO_LOGE
 #define LOGE(fmt, ...)            \
-  EA1_LOG_PRINTF("Error %s %d: " fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+  EA1_LOG_PRINTF("Error %s %d: " fmt, EA1_FILE__, __LINE__, ##__VA_ARGS__)
 #else  // def EA1_NO_LOGE
 #define LOGE(fmt, ...)            \
   do { } while(0)
@@ -53,7 +57,7 @@ extern "C" {
   
 #ifdef EA1_DEBUG
 #define LOGD(fmt, ...)            \
-  EA1_LOG_PRINTF("%s %d: " fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+  EA1_LOG_PRINTF("%s %d: " fmt, EA1_FILE__, __LINE__, ##__VA_ARGS__)
 #else // ndef EA1_DEBUG
 #define LOGD(fmt, ...) \
   do { } while(0)
@@ -79,11 +83,11 @@ extern "C" {
   extern "C" {
 #endif
 #ifdef EA1_DEBUG_LEAK
-#define malloc(size) GC_debug_malloc(size, __FILE__, __LINE__)
-#define realloc(size) GC_debug_realloc(size, __FILE__, __LINE__)
-#define calloc(m,n) GC_debug_malloc((m) * (n), __FILE__, __LINE__)
-#define strdup(s) GC_debug_strdup(s, __FILE__, __LINE__)
-#define strndup(s,n) GC_debug_strdup(s, n, __FILE__, __LINE__)
+#define malloc(size) GC_debug_malloc(size, EA1_FILE__, __LINE__)
+#define realloc(size) GC_debug_realloc(size, EA1_FILE__, __LINE__)
+#define calloc(m,n) GC_debug_malloc((m) * (n), EA1_FILE__, __LINE__)
+#define strdup(s) GC_debug_strdup(s, EA1_FILE__, __LINE__)
+#define strndup(s,n) GC_debug_strdup(s, n, EA1_FILE__, __LINE__)
 #define free GC_debug_free
 #define EA1_DEBUG_LEAK_START \
       GC_set_find_leak(1);
