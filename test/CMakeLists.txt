@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_C_FLAGS_RELEASE "-Wall -O2 -fPIC")
 set(CMAKE_C_FLAGS_DEBUG "-Wall -g -fPIC")
+set(CMAKE_CXX_FLAGS "-DEA1_DEBUG_TAG=EA1_TEST")
 set(CMAKE_CXX_FLAGS_RELEASE "-Wall -O2 -fPIC -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG "-Wall -g -fPIC -std=c++11")
 project(ea1_test)

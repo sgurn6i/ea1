@@ -7,7 +7,7 @@
  * #define LOG_TAG "Choge"
  * LOGI("hoge info %d", i);
  * LOGE("BUG found");
- * #define EA1_DEBUG
+ * #define EA1_DEBUG_TAG Choge
  * LOGD("checkpoint");
  *
  * // leak check
@@ -54,10 +54,23 @@ extern "C" {
 #define LOGE(fmt, ...)            \
   do { } while(0)
 #endif  // def EA1_NO_LOGE
-  
+
+/* LOG_TAGが"EA1_DEBUG_TAG"と一致した場合だけ LOGD を printf する。*/  
+#ifdef EA1_DEBUG_TAG
+#define EA1_DEBUG_QUO_(x)  #x
+#define EA1_DEBUG_QUO(x) EA1_DEBUG_QUO_(x) 
+#define EA1_DEBUG_TAG_Q  EA1_DEBUG_QUO( EA1_DEBUG_TAG )
+#ifndef EA1_DEBUG
+#define EA1_DEBUG
+#endif
+#else // ndef EA1_DEBUG_TAG
+#define EA1_DEBUG_TAG_Q ""
+#endif // ndef EA1_DEBUG_TAG
+
 #ifdef EA1_DEBUG
 #define LOGD(fmt, ...)            \
-  EA1_LOG_PRINTF("%s %d: " fmt, EA1_FILE__, __LINE__, ##__VA_ARGS__)
+  if((! strcmp(EA1_DEBUG_TAG_Q, "")) || (! strcmp(EA1_DEBUG_TAG_Q, LOG_TAG))) \
+    EA1_LOG_PRINTF("%s %d: " fmt, EA1_FILE__, __LINE__, ##__VA_ARGS__)
 #else // ndef EA1_DEBUG
 #define LOGD(fmt, ...) \
   do { } while(0)
