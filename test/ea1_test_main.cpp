@@ -2,6 +2,7 @@
    EA1 テスト用 main 関数。 
    2016-06-14 08:26:20 Sgurn6i
 */
+#include <stdio.h>
 #include <vector>
 #include "ea1_debug.h"
 #include "ea1_benri.h"
@@ -19,6 +20,8 @@ int main(int argc, char *argv[])
   LOGE("LOGE a fake error");
   LOGD("LOGD debug point");
   LOGI("LOGI info a = %d", a);
+#define FORMAT1  num %d\n
+  fprintf(stderr, EA1_QUO(FORMAT1), 123);
   LOGI("vsize= %d", (int)vp->size());
   EA1_SAFE_FREE(ap);
   EA1_SAFE_FREE(bp);

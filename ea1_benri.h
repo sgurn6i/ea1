@@ -34,7 +34,11 @@ typedef enum ea1_status_enum
 #define EA1_E_FILE  EA1_FILE_ERROR
 #define EA1_E_INVAL EA1_EINVAL
 #define EA1_E_RANGE EA1_ERANGE
-
+/* C++ delete */
 #define  EA1_SAFE_DELETE(p) \
   do { if(p) { delete(p); p = NULL; }} while(0)
 #endif /* _EA1_BENRI_H_ */
+/* xを""で囲んで文字列リテラルにする。 */
+#define EA1_QUO_(x) #x
+/*   xはマクロでもおｋ． */
+#define EA1_QUO(x) EA1_QUO_(x)
